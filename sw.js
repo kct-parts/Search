@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kctech-v4';
+const CACHE_NAME = 'kctech-v1';
 // 오프라인에서도 동작할 로컬 파일들
 const LOCAL_ASSETS = [
   './',
