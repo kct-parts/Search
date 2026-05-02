@@ -428,13 +428,13 @@ function esc(v){
 }
 
 // 부품 이미지 URL 생성 (GitHub raw)
-// 파일명 규칙: images/{모델명}.jpg
-// 모델명에 파일명 불가 문자(/ \ : * ? " < > | 공백)가 있으면 _로 치환
+// 파일명 규칙: images/{품목코드}.jpg
+// (품목코드에 파일명 불가 문자(/ \ : * ? " < > | 공백)가 있으면 _로 치환)
 function sanitizeFilename(s){
   return String(s || '').trim().replace(/[\\\/:*?"<>|\s]+/g, '_');
 }
-function getPartImageUrl(model){
-  const safe = sanitizeFilename(model);
+function getPartImageUrl(itemcode){
+  const safe = sanitizeFilename(itemcode);
   if(!safe) return null;
   return 'https://raw.githubusercontent.com/' + GH.owner + '/' + GH.repo +
          '/' + GH.branch + '/images/' + encodeURIComponent(safe) + '.jpg';
@@ -703,7 +703,7 @@ function filterData(){
 
 // 검색 결과 카드 HTML 생성
 function makeCardHTML(d, i){
-  const imgUrl = getPartImageUrl(d.model);
+  const imgUrl = getPartImageUrl(d.itemcode);
   const thumb = imgUrl
     ? '<div class="card-thumb"><img src="' + esc(imgUrl) + '" alt="' + esc(d.part || '') +
       '" loading="lazy" onerror="this.parentElement.classList.add(\'empty\');this.remove();"></div>'
